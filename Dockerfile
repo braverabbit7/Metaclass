@@ -12,8 +12,8 @@ RUN npm install
 # Build assets
 RUN cd demoapp && npm install && npm run build 
 
-# Stage 2: Serve assets with nginx
-FROM nginx:alpine
+#Stage 2: Serve assets with nginx
+FROM nginx:latest
 
 # Copy nginx configuration
 #COPY nginx.conf /etc/nginx/nginx.conf
@@ -22,11 +22,10 @@ FROM nginx:alpine
 RUN rm -rf /usr/share/nginx/html/*
 
 # Copy assets from the builder stage to nginx
-COPY index.html /usr/share/nginx/html
-#COPY --from=builder /app/demoapp/build /usr/share/nginx/html
+COPY --from=builder /app/demoapp/build /usr/share/nginx/html
 
 # Expose port
 EXPOSE 80
 
 # Start nginx
-CMD ["nginx", "-g", "daemon off;"]
+# CMD ["nginx", "-g", "daemon off;"]
