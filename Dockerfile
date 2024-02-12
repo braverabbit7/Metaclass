@@ -6,9 +6,6 @@ WORKDIR /app
 # Copy package.json and package-lock.json
 COPY . ./
 
-# Install dependencies
-RUN npm install
-
 # Build assets
 RUN cd demoapp && npm install && npm run build 
 
